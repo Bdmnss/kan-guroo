@@ -11,6 +11,7 @@ import Register from "./pages/Register";
 import NotFound from "./pages/NotFound";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import ProductPage from "./pages/ProductPage";
+import Checkout from "./pages/Checkout";
 
 const router = createBrowserRouter([
   {
@@ -44,6 +45,10 @@ const router = createBrowserRouter([
   {
     path: "/register",
     element: <Register />,
+  },
+  {
+    path: "/checkout",
+    element: <Checkout />,
   },
   {
     path: "*",
