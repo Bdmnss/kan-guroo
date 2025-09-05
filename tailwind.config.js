@@ -14,10 +14,15 @@ export default {
         },
       },
       colors: {
-        dark: "#101010",
         orange: "#d87d4a",
+        light: "#f1f1f1",
+        dark: "#101010",
+        orangeLight: "#fbaf85",
+        charcoal: "#181818",
+        softGrayBg: "#80808038",
       },
     },
   },
+  darkMode: "class",
   plugins: [],
 };

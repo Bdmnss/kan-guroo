@@ -8,6 +8,7 @@ import Favorites from "./pages/Favorites";
 import { Navigate } from "react-router-dom";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 const router = createBrowserRouter([
   {
@@ -40,12 +41,14 @@ const router = createBrowserRouter([
   },
 ]);
 
+const queryClient = new QueryClient();
+
 function App() {
   return (
-    <>
+    <QueryClientProvider client={queryClient}>
       <Header />
       <RouterProvider router={router} />
-    </>
+    </QueryClientProvider>
   );
 }
 

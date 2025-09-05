@@ -17,9 +17,9 @@ export default function ThemeToggleButton() {
   return (
     <button onClick={toggleTheme} className="p-2 text-white">
       {theme === "dark" ? (
-        <FaSun size={20} className="hover:text-orange text-white" />
+        <FaSun size={20} className="text-white hover:text-orange" />
       ) : (
-        <FaMoon size={20} className="hover:text-orange text-white" />
+        <FaMoon size={20} className="text-white hover:text-orange" />
       )}
     </button>
   );
