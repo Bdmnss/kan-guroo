@@ -5,9 +5,17 @@ import About from "./pages/About";
 import Contact from "./pages/Contact";
 import Favorites from "./pages/Favorites";
 
+import { Navigate } from "react-router-dom";
+import Login from "./pages/Login";
+import Register from "./pages/Register";
+
 const router = createBrowserRouter([
   {
     path: "/",
+    element: <Navigate to="/products" replace />,
+  },
+  {
+    path: "/products",
     element: <Home />,
   },
   {
@@ -21,6 +29,14 @@ const router = createBrowserRouter([
   {
     path: "/favorites",
     element: <Favorites />,
+  },
+  {
+    path: "/login",
+    element: <Login />,
+  },
+  {
+    path: "/register",
+    element: <Register />,
   },
 ]);
 

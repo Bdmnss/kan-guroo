@@ -1,4 +1,4 @@
-import { FaShoppingCart, FaHeart } from "react-icons/fa";
+import { FaShoppingCart, FaHeart, FaUser } from "react-icons/fa";
 import ThemeToggleButton from "./ThemeToggleButton";
 
 const Header = () => {
@@ -30,6 +30,13 @@ const Header = () => {
             </div>
           </div>
           <ThemeToggleButton />
+          <FaUser
+            size={20}
+            className="hover:text-orange cursor-pointer text-white"
+            onClick={() => {
+              window.location.href = "/login";
+            }}
+          />
         </div>
       </div>
     </header>
