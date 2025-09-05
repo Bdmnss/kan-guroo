@@ -7,6 +7,9 @@ import SortDropdown from "../components/SortDropdown";
 import { useDebounce } from "../hooks/useDebounce";
 import { useNavigate } from "react-router-dom";
 import { fetchProducts } from "../api/useProducts";
+import Spinner from "../components/Spinner";
+import ProductsGrid from "../components/ProductsGrid";
+import Pagination from "../components/Pagination";
 
 const Home = () => {
   const [selectedCategory, setSelectedCategory] = useState("All");
@@ -26,6 +29,10 @@ const Home = () => {
     queryFn: () =>
       fetchProducts(selectedCategory, debouncedSearch, page, limit, sortOrder),
   });
+
+  const products = data?.products || [];
+  const total = data?.total || 0;
+  const pageCount = Math.ceil(total / limit);
 
   const { data: categories } = useQuery({
     queryKey: ["categories"],
@@ -47,11 +54,36 @@ const Home = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedCategory, debouncedSearch, sortOrder]);
 
+  useEffect(() => {
+    setPage(1);
+  }, [selectedCategory, debouncedSearch, sortOrder]);
+
+  useEffect(() => {
+    if (debouncedSearch) {
+      if (selectedCategory !== "All") setSelectedCategory("All");
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [debouncedSearch]);
+
   const currentCategory =
     selectedCategory && selectedCategory !== "All"
       ? categories.find((c: { slug: string }) => c.slug === selectedCategory)
           ?.name || selectedCategory
       : null;
+
+  if (isError) {
+    return (
+      <div className="bg-light flex h-screen flex-col items-center justify-center transition-colors duration-500 dark:bg-dark">
+        <span className="mb-4 text-7xl font-bold text-red-500">404</span>
+        <span className="mb-2 text-2xl font-semibold text-red-500">
+          Failed to load products.
+        </span>
+        <span className="text-base text-gray-500 transition-colors duration-500 dark:text-gray-400">
+          Please try again later or check your connection.
+        </span>
+      </div>
+    );
+  }
 
   return (
     <div className="bg-light flex min-h-screen flex-col items-center py-20 transition-colors duration-500 dark:bg-dark">
@@ -92,6 +124,14 @@ const Home = () => {
           setSortOpen={setSortOpen}
         />
       </div>
+      {isPending ? (
+        <Spinner fullScreen text="Loading products..." />
+      ) : (
+        <div className="w-full max-w-7xl">
+          <ProductsGrid products={products} />
+          <Pagination page={page} pageCount={pageCount} setPage={setPage} />
+        </div>
+      )}
     </div>
   );
 };
