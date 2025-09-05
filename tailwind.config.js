@@ -15,6 +15,7 @@ export default {
       },
       colors: {
         dark: "#101010",
+        orange: "#d87d4a",
       },
     },
   },
