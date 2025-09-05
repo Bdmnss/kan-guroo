@@ -5,10 +5,13 @@ import { twMerge } from "tailwind-merge";
 
 import type { Product } from "../types/types";
 import { useFavoritesStore } from "../stores/favoritesStore";
+import { useCartStore } from "../stores/cartStore";
 
 export default function ProductCard({ product }: { product: Product }) {
   const [imgLoaded, setImgLoaded] = useState(false);
   const { addFavorite, removeFavorite, isFavorite } = useFavoritesStore();
+  const { addToCart, setCartOpen } = useCartStore();
+
   const navigate = useNavigate();
   const favorite = isFavorite(product.id);
 
@@ -27,7 +30,8 @@ export default function ProductCard({ product }: { product: Product }) {
 
   const handleAddToCart = (e: React.MouseEvent) => {
     e.preventDefault();
-    console.log("Add to cart clicked");
+    addToCart(product);
+    setCartOpen(true);
   };
 
   const slug = `${product.title.replace(/\s+/g, "-").toLowerCase()}-${product.price}-${product.id}`;

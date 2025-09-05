@@ -39,8 +39,6 @@ const Home = () => {
     queryFn: getCategories,
   });
 
-  console.log("Products data:", data);
-
   useEffect(() => {
     let url = "/products";
     const params = new URLSearchParams();

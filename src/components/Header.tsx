@@ -2,8 +2,14 @@ import { FaShoppingCart, FaHeart } from "react-icons/fa";
 import ThemeToggleButton from "./ThemeToggleButton";
 import UserDropdown from "./UserDropdown";
 import BurgerMenu from "./BurgerMenu";
+import Cart from "./Cart";
+import { useCartStore } from "../stores/cartStore";
 
 const Header = () => {
+  const setCartOpen = useCartStore((state) => state.setCartOpen);
+  const isCartOpen = useCartStore((state) => state.isCartOpen);
+  const cartItemsQuantity = useCartStore((state) => state.cartItemsQuantity);
+
   return (
     <header className="relative flex justify-center pb-28">
       <div className="border-b-light fixed z-20 flex w-full items-center justify-between border-b-[1px] bg-dark px-5 py-10 sm:px-10">
@@ -37,6 +43,10 @@ const Header = () => {
           </a>
           <div
             className="relative cursor-pointer"
+            onClick={(e) => {
+              e.stopPropagation();
+              setCartOpen(!isCartOpen);
+            }}
             tabIndex={0}
             role="button"
             aria-label="Open cart"
@@ -46,6 +56,11 @@ const Header = () => {
                 size={20}
                 className="text-white hover:text-orange"
               />
+              {cartItemsQuantity > 0 && (
+                <div className="absolute -right-2 -top-2 flex size-4 items-center justify-center rounded-full bg-orange text-xs font-bold text-white">
+                  {cartItemsQuantity}
+                </div>
+              )}
             </div>
           </div>
           <ThemeToggleButton />
@@ -53,6 +68,8 @@ const Header = () => {
           <BurgerMenu />
         </div>
       </div>
+
+      <Cart />
     </header>
   );
 };
