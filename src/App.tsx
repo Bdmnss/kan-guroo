@@ -10,6 +10,7 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import NotFound from "./pages/NotFound";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import ProductPage from "./pages/ProductPage";
 
 const router = createBrowserRouter([
   {
@@ -19,6 +20,10 @@ const router = createBrowserRouter([
   {
     path: "/products",
     element: <Home />,
+  },
+  {
+    path: "products/:slug",
+    element: <ProductPage />,
   },
   {
     path: "/about",

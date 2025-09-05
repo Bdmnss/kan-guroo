@@ -1,5 +1,7 @@
+import { useQuery } from "@tanstack/react-query";
 import {
   getAllProducts,
+  getProductById,
   getProductsByCategory,
   getSortedProducts,
   searchProducts,
@@ -23,3 +25,11 @@ export const fetchProducts = async (
   }
   return await getAllProducts(page, limit);
 };
+
+export function useProduct(id: string) {
+  return useQuery({
+    queryKey: ["product", id],
+    queryFn: () => getProductById(id),
+    staleTime: 1000 * 60 * 5, // 5 minutes
+  });
+}

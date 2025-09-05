@@ -67,8 +67,6 @@ export default function ProductCard({ product }: { product: Product }) {
             </div>
           )}
           <img
-            width={160}
-            height={160}
             src={product.thumbnail}
             alt={product.title}
             className={twMerge(

@@ -54,3 +54,8 @@ export const getSortedProducts = async (
   );
   return res.data;
 };
+
+export const getProductById = async (id: string) => {
+  const res = await axiosInstance.get(`/${id}`);
+  return res.data;
+};
